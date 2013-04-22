@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Lekplatser.Api.Models
+﻿namespace Lekplatser.Api.Models
 {
     public class Playground
     {
-        public Playground()
-        {
-            
-        }
-
         public string PlaygroundId { get; set; }
+
+        public string Name { get; set; }
 
         public float Lat { get; set; }
         public float Long { get; set; }
@@ -23,5 +15,7 @@ namespace Lekplatser.Api.Models
         public bool HasSlide { get; set; }
         public bool HasSandbox { get; set; }
 
+        public bool HasBenches { get; set; }
+        public bool HasPublicToilet { get; set; }
     }
 }
