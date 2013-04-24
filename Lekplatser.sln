@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4FBDD8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lekplatser.Admin", "Lekplatser.Admin\Lekplatser.Admin.csproj", "{C4DA81D7-CF45-464C-881D-618A1FED8874}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lekplatser.Dto", "Lekplatser.Dto\Lekplatser.Dto.csproj", "{429694CA-F3E2-4CB7-B8D9-EE93BE84E911}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{C4DA81D7-CF45-464C-881D-618A1FED8874}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4DA81D7-CF45-464C-881D-618A1FED8874}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4DA81D7-CF45-464C-881D-618A1FED8874}.Release|Any CPU.Build.0 = Release|Any CPU
+		{429694CA-F3E2-4CB7-B8D9-EE93BE84E911}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{429694CA-F3E2-4CB7-B8D9-EE93BE84E911}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{429694CA-F3E2-4CB7-B8D9-EE93BE84E911}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{429694CA-F3E2-4CB7-B8D9-EE93BE84E911}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
