@@ -1,8 +1,10 @@
-﻿namespace Lekplatser.Api.Models
+﻿using MongoDB.Bson;
+
+namespace Lekplatser.Api.Models
 {
     public class Playground
     {
-        public string PlaygroundId { get; set; }
+        public ObjectId Id { get; set; }
 
         public string Name { get; set; }
 
