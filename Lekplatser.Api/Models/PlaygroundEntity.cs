@@ -2,7 +2,7 @@
 
 namespace Lekplatser.Api.Models
 {
-    public class Playground
+    public class PlaygroundEntity
     {
         public ObjectId Id { get; set; }
 

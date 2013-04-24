@@ -7,25 +7,25 @@ namespace Lekplatser.Api.Repositories
 {
     public class PlaygroundsRepository : BaseRepository
     {
-        public IEnumerable<Playground> GetPlaygrounds()
+        public IEnumerable<PlaygroundEntity> GetPlaygrounds()
         {
             return GetCollection().FindAll();
         }
 
-        public ObjectId Add(Playground p)
+        public ObjectId Add(PlaygroundEntity p)
         {
             GetCollection().Insert(p);
             return p.Id;
         }
 
-        public void Update(Playground p)
+        public void Update(PlaygroundEntity p)
         {
             GetCollection().Save(p);
         }
 
-        private MongoCollection<Playground> GetCollection()
+        private MongoCollection<PlaygroundEntity> GetCollection()
         {
-            return GetDataBase().GetCollection<Playground>("playgrounds");
+            return GetDataBase().GetCollection<PlaygroundEntity>("playgrounds");
         }
     }
 }
