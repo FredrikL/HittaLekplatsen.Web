@@ -1,6 +1,5 @@
 ﻿using System.Web.Http;
-using System.Web.Optimization;
-using System.Web.Routing;
+using Lekplatser.Api.App_Start;
 
 namespace Lekplatser.Api
 {
@@ -12,6 +11,7 @@ namespace Lekplatser.Api
         protected void Application_Start()
         {
             WebApiConfig.Register(GlobalConfiguration.Configuration);
+            AutoMapperConfig.Configure();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Lekplatser.Api.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Lekplatser.Api.Repositories
@@ -8,19 +9,23 @@ namespace Lekplatser.Api.Repositories
     {
         public IEnumerable<Playground> GetPlaygrounds()
         {
-            return GetDataBase().GetCollection<Playground>("playgrounds").FindAll();
+            return GetCollection().FindAll();
         }
 
-        
-    }
-
-    public class BaseRepository
-    {
-        protected MongoDatabase GetDataBase()
+        public ObjectId Add(Playground p)
         {
-            var client = new MongoClient("mongodb://localhost");
-            var server = client.GetServer();
-            return server.GetDatabase("playgrounds");
+            GetCollection().Insert(p);
+            return p.Id;
+        }
+
+        public void Update(Playground p)
+        {
+            GetCollection().Save(p);
+        }
+
+        private MongoCollection<Playground> GetCollection()
+        {
+            return GetDataBase().GetCollection<Playground>("playgrounds");
         }
     }
 }
