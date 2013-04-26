@@ -14,14 +14,9 @@ namespace Lekplatser.Admin.Controllers
             _repository = repository;
         }
 
-        //
-        // GET: /Playgrounds/
-
         public ActionResult Index()
         {
-            var items = Enumerable.Empty<Playground>();
-
-            return View(items);
+            return View(_repository.GetAll());
         }
 
     }
