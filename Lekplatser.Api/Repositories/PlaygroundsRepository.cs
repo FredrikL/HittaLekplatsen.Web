@@ -5,7 +5,7 @@ using MongoDB.Driver;
 
 namespace Lekplatser.Api.Repositories
 {
-    public class PlaygroundsRepository : BaseRepository
+    public class PlaygroundsRepository : BaseRepository, IPlaygroundsRepository
     {
         public IEnumerable<PlaygroundEntity> GetPlaygrounds()
         {
