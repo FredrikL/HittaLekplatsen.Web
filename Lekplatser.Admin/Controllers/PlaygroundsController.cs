@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Lekplatser.Admin.Repository;
+using Lekplatser.Dto;
 
 namespace Lekplatser.Admin.Controllers
 {
@@ -16,6 +17,12 @@ namespace Lekplatser.Admin.Controllers
         {
             return View(_repository.GetAll());
         }
+
+        public ActionResult Detail(string id)
+        {
+            Playground p = null;
+            return View(p);
+        } 
 
     }
 }
