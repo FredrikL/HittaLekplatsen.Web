@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Lekplatser.Api.Security;
 using Lekplatser.Dto;
 
 namespace Lekplatser.Api.Controllers
@@ -12,6 +13,13 @@ namespace Lekplatser.Api.Controllers
         //{
         //    return new string[] { "value1", "value2" };
         //}
+
+        [Admin]
+        public IEnumerable<Playground> GetAll()
+        {
+            //TODO: Admin only
+            return Enumerable.Empty<Playground>();
+        } 
 
         public IEnumerable<Playground> Get(float lat, float lng)
         {
