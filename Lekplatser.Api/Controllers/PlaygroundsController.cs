@@ -17,8 +17,7 @@ namespace Lekplatser.Api.Controllers
         [Admin]
         public IEnumerable<Playground> GetAll()
         {
-            //TODO: Admin only
-            return Enumerable.Empty<Playground>();
+           return Enumerable.Empty<Playground>();
         } 
 
         public IEnumerable<Playground> Get(float lat, float lng)

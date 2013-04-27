@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
 
 namespace Lekplatser.Api.App_Start
 {
@@ -8,8 +9,8 @@ namespace Lekplatser.Api.App_Start
         {
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                routeTemplate: "{controller}/{Action}/{id}",
+                defaults: new { id = RouteParameter.Optional, Action = "Get" }
             );
 
             // Uncomment the following line of code to enable query support for actions with an IQueryable or IQueryable<T> return type.
