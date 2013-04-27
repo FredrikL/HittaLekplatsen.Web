@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Lekplatser.Admin.Repository;
-using Lekplatser.Dto;
 
 namespace Lekplatser.Admin.Controllers
 {
