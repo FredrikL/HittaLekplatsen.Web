@@ -50,7 +50,7 @@ namespace Lekplatser.Api.Controllers
         }
 
         // PUT api/values/5
-        public void Put(int id, [FromBody]Playground value)
+        public void Put(string id, [FromBody]Playground value)
         {
         }
 
