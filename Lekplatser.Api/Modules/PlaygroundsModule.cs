@@ -7,7 +7,7 @@ using MongoDB.Bson;
 using Nancy;
 using Nancy.ModelBinding;
 
-namespace Lekplatser.Api.Controllers
+namespace Lekplatser.Api.Modules
 {
     public class PlaygroundsModule : NancyModule
     {
@@ -17,14 +17,14 @@ namespace Lekplatser.Api.Controllers
         {
             _repository = repository;
 
-            Get["/GetAll"] = x =>
+            Get["/GetAll"] = _ =>
             {
                 IEnumerable<PlaygroundEntity> playgroundEntities = _repository.GetPlaygrounds();
                 var ret = Mapper.Map<IEnumerable<PlaygroundEntity>, IEnumerable<Playground>>(playgroundEntities);
                 return ret.ToJson();
             };
 
-            Post["/Create"] = x =>
+            Post["/Create"] = _ =>
             {
                 var p = this.Bind<Playground>();
                 var entity = Mapper.Map<Playground, PlaygroundEntity>(p);

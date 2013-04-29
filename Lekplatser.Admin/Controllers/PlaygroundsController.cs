@@ -15,17 +15,6 @@ namespace Lekplatser.Admin.Controllers
 
         public ActionResult Index()
         {
-            var p = new Playground()
-            {
-                Location = new Location(13, 55),
-                HasBenches = true,
-                HasPublicToilet = false,
-                HasSandbox = true,
-                HasSlide = true,
-                HasSwing = true,
-
-            };
-            _repository.Add(p);
             return View(_repository.GetAll());
         }
 
