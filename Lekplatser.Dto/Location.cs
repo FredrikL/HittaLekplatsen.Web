@@ -2,6 +2,8 @@
 {
     public class Location
     {
+        public Location() : this(0,0) { }
+
         public Location(float lat, float lng)
         {
             Lat = lat;

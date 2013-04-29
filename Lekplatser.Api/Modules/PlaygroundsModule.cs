@@ -5,6 +5,7 @@ using Lekplatser.Api.Repositories;
 using Lekplatser.Dto;
 using MongoDB.Bson;
 using Nancy;
+using Nancy.ModelBinding;
 
 namespace Lekplatser.Api.Controllers
 {
@@ -25,7 +26,8 @@ namespace Lekplatser.Api.Controllers
 
             Post["/Create"] = x =>
             {
-                var entity = Mapper.Map<Playground, PlaygroundEntity>(null);
+                var p = this.Bind<Playground>();
+                var entity = Mapper.Map<Playground, PlaygroundEntity>(p);
                 var id = _repository.Add(entity);
                 return id.ToString().ToJson();
             };
