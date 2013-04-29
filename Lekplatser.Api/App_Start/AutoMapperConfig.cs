@@ -12,7 +12,7 @@ namespace Lekplatser.Api.App_Start
             Mapper.CreateMap<Playground, PlaygroundEntity>()
                 .ForMember(pe => pe.Lat, o => o.MapFrom(p => p.Location.Lat))
                 .ForMember(pe => pe.Long, o => o.MapFrom(p => p.Location.Long))
-                .ForMember(pe => pe.Id, o=> o.Ignore()) // TOOD: handle id if not null...
+                .ForMember(pe => pe.Id, o=> o.NullSubstitute(ObjectId.Empty))
                 .ForMember(pe => pe.Rating, o => o.Ignore());
 
             Mapper.CreateMap<PlaygroundEntity, Playground>()
