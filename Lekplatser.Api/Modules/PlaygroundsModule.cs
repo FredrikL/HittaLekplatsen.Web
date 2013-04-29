@@ -1,27 +1,37 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Web.Http;
-using System.Web.Http.ModelBinding;
 using AutoMapper;
 using Lekplatser.Api.Models;
 using Lekplatser.Api.Repositories;
-using Lekplatser.Api.Security;
 using Lekplatser.Dto;
+using MongoDB.Bson;
+using Nancy;
 
 namespace Lekplatser.Api.Controllers
 {
-    public class PlaygroundsController : ApiController
+    public class PlaygroundsModule : NancyModule
     {
         private readonly IPlaygroundsRepository _repository;
 
-        public PlaygroundsController(IPlaygroundsRepository repository)
+        public PlaygroundsModule(IPlaygroundsRepository repository) :base("/Playgrounds")
         {
             _repository = repository;
+
+            Get["/GetAll"] = x =>
+            {
+                IEnumerable<PlaygroundEntity> playgroundEntities = _repository.GetPlaygrounds();
+                var ret = Mapper.Map<IEnumerable<PlaygroundEntity>, IEnumerable<Playground>>(playgroundEntities);
+                return ret.ToJson();
+            };
+
+            Post["/Create"] = x =>
+            {
+                var entity = Mapper.Map<Playground, PlaygroundEntity>(null);
+                var id = _repository.Add(entity);
+                return id.ToString().ToJson();
+            };
         }
 
-        [Admin]
-        public IEnumerable<Playground> GetAll()
+/*        public IEnumerable<Playground> GetAll()
         {
             IEnumerable<PlaygroundEntity> playgroundEntities = _repository.GetPlaygrounds();
             var ret = Mapper.Map<IEnumerable<PlaygroundEntity>, IEnumerable<Playground>>(playgroundEntities);
@@ -51,6 +61,6 @@ namespace Lekplatser.Api.Controllers
         public void Put(string id, [FromBody]Playground value)
         {
         }
-
+        */
     }
 }
