@@ -3,7 +3,6 @@ using AutoMapper;
 using Lekplatser.Api.Models;
 using Lekplatser.Api.Repositories;
 using Lekplatser.Dto;
-using MongoDB.Bson;
 using Nancy;
 using Nancy.ModelBinding;
 
@@ -17,11 +16,12 @@ namespace Lekplatser.Api.Modules
         {
             _repository = repository;
 
+            //TODO: require admin key
             Get["/GetAll"] = _ =>
             {
                 IEnumerable<PlaygroundEntity> playgroundEntities = _repository.GetPlaygrounds();
                 var ret = Mapper.Map<IEnumerable<PlaygroundEntity>, IEnumerable<Playground>>(playgroundEntities);
-                return ret.ToJson();
+                return Response.AsJson(ret);
             };
 
             Post["/Create"] = _ =>
@@ -29,40 +29,8 @@ namespace Lekplatser.Api.Modules
                 var p = this.Bind<Playground>();
                 var entity = Mapper.Map<Playground, PlaygroundEntity>(p);
                 var id = _repository.Add(entity);
-                return id.ToString().ToJson();
+                return Response.AsJson(id.ToString());
             };
         }
-
-/*        public IEnumerable<Playground> GetAll()
-        {
-            IEnumerable<PlaygroundEntity> playgroundEntities = _repository.GetPlaygrounds();
-            var ret = Mapper.Map<IEnumerable<PlaygroundEntity>, IEnumerable<Playground>>(playgroundEntities);
-            return ret;
-        }
-
-        public IEnumerable<Playground> Get(float lat, float lng)
-        {
-            return Enumerable.Empty<Playground>();
-        } 
-
-        // GET api/values/5
-        public Playground Get(string id)
-        {
-            return null;
-        }
-
-        [HttpPost]
-        public string Create(Playground value)
-        {
-            var entity = Mapper.Map<Playground, PlaygroundEntity>(value);
-            var id = _repository.Add(entity);
-            return id.ToString();
-        }
-
-        // PUT api/values/5
-        public void Put(string id, [FromBody]Playground value)
-        {
-        }
-        */
     }
 }

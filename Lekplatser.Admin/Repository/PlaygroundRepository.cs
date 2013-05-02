@@ -14,7 +14,6 @@ namespace Lekplatser.Admin.Repository
             var wc = new WebClient();
             var data = wc.DownloadString(ConfigurationManager.AppSettings["ApiUrl"] + "/Playgrounds/GetAll");
             var x = JsonConvert.DeserializeObject<Playground[]>(data);
-            //var x = TypeSerializer.DeserializeFromString<Playground[]>(data);
             return x;
         }
 
@@ -39,9 +38,6 @@ namespace Lekplatser.Admin.Repository
                 var result = streamReader.ReadToEnd();
             }
 
-
-            //var sr = new StreamReader(stream);
-            //var id = sr.ReadLine();
             return "";
         } 
     }

@@ -13,10 +13,11 @@ namespace Lekplatser.Api.App_Start
                 .ForMember(pe => pe.Lat, o => o.MapFrom(p => p.Location.Lat))
                 .ForMember(pe => pe.Long, o => o.MapFrom(p => p.Location.Long))
                 .ForMember(pe => pe.Id, o=> o.NullSubstitute(ObjectId.Empty))
-                .ForMember(pe => pe.Rating, o => o.Ignore());
+                .ForMember(pe => pe.Rating, o => o.Ignore()); // for now
 
             Mapper.CreateMap<PlaygroundEntity, Playground>()
-                .ForMember(p => p.Location, o => o.MapFrom(pe => new Location(pe.Lat, pe.Long)));
+                .ForMember(p => p.Location, o => o.MapFrom(pe => new Location(pe.Lat, pe.Long)))
+                .ForMember(p => p.Id, o => o.MapFrom(pe => pe.Id.ToString()));
 
         }
     }

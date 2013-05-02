@@ -8,6 +8,14 @@
 <div class="row-fluid">
     <div class="span12">
         <h2>Playgrounds</h2>
-    
+        <table>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>@p.Name (@p.Id)</td>
+                    <td>@p.Location.Long, @p.Location.Lat</td>
+                </tr>
+            }
+        </table>
     </div>
 </div>
