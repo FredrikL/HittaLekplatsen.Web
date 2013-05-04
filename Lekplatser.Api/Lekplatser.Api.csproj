@@ -93,6 +93,7 @@
     <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="Modules\PlaygroundsModule.cs" />
     <Compile Include="Models\PlaygroundEntity.cs" />
+    <Compile Include="Modules\RequestExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\IPlaygroundsRepository.cs" />
