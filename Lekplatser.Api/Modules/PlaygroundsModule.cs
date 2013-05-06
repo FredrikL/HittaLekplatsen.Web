@@ -16,13 +16,17 @@ namespace Lekplatser.Api.Modules
         {
             _repository = repository;
 
-            //TODO: require admin key
             Get["/GetAll"] = _ =>
             {
                 Request.RequireAdmin();
                 IEnumerable<PlaygroundEntity> playgroundEntities = _repository.GetPlaygrounds();
                 var ret = Mapper.Map<IEnumerable<PlaygroundEntity>, IEnumerable<Playground>>(playgroundEntities);
                 return Response.AsJson(ret);
+            };
+
+            Get["/GetByLocation"] = param =>
+            {
+                return null;
             };
 
             Post["/Create"] = _ =>
