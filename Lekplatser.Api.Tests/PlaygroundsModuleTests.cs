@@ -17,15 +17,23 @@ namespace Lekplatser.Api.Tests
             AutoMapperConfig.Configure();
         }
 
+        private IPlaygroundsRepository playgroundsRepository;
+        private Browser browser;
+
+        [SetUp]
+        public void Setup()
+        {
+            playgroundsRepository = A.Fake<IPlaygroundsRepository>();
+            browser = new Browser(with =>
+            {
+                with.Module<PlaygroundsModule>();
+                with.Dependencies<IPlaygroundsRepository>(playgroundsRepository);
+            });
+        }
+
         [Test]
         public void ShouldBePossibleToGetPlaygroundsBasedOnLocation()
         {
-            var browser = new Browser(with =>
-            {
-                with.Module<PlaygroundsModule>();
-                with.Dependencies<IPlaygroundsRepository>(A.Fake<IPlaygroundsRepository>());
-            });
-
             var result = browser.Get("/Playgrounds/GetAll", with =>
             {
                 with.HttpRequest();

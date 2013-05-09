@@ -8,8 +8,7 @@ namespace Lekplatser.Api.Models
 
         public string Name { get; set; }
 
-        public float Lat { get; set; }
-        public float Long { get; set; }
+        public LocationEntity Loc { get; set; }
 
         public float Rating { get; set; }
 

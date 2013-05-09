@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AutoMapperConfig.cs" />
+    <Compile Include="Models\LocationEntity.cs" />
     <Compile Include="Modules\PlaygroundsModule.cs" />
     <Compile Include="Models\PlaygroundEntity.cs" />
     <Compile Include="Modules\RequestExtensions.cs" />
