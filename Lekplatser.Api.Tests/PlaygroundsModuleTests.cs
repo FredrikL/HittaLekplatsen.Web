@@ -1,6 +1,7 @@
 ﻿using System.Runtime;
 using FakeItEasy;
 using Lekplatser.Api.App_Start;
+using Lekplatser.Api.Models;
 using Lekplatser.Api.Modules;
 using Lekplatser.Api.Repositories;
 using NUnit.Framework;
@@ -18,27 +19,24 @@ namespace Lekplatser.Api.Tests
             AutoMapperConfig.Configure();
         }
 
-        private IPlaygroundsRepository playgroundsRepository;
-        private Browser browser;
+        private IPlaygroundsRepository _playgroundsRepository;
+        private Browser _browser;
 
         [SetUp]
         public void Setup()
         {
-            playgroundsRepository = A.Fake<IPlaygroundsRepository>();
-            browser = new Browser(with =>
+            _playgroundsRepository = A.Fake<IPlaygroundsRepository>();
+            _browser = new Browser(with =>
             {
                 with.Module<PlaygroundsModule>();
-                with.Dependencies<IPlaygroundsRepository>(playgroundsRepository);
+                with.Dependencies<IPlaygroundsRepository>(_playgroundsRepository);
             });
         }
 
         [Test]
         public void ShouldBePossibleToGetPlaygroundsBasedOnLocation()
         {
-            var result = browser.Get("/Playgrounds/GetAll", with =>
-            {
-                with.HttpRequest();
-            });
+            var result = _browser.Get("/Playgrounds/GetAll");
 
             Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
@@ -46,15 +44,14 @@ namespace Lekplatser.Api.Tests
         [Test]
         public void ShouldBePossibleToSearchForPlaygroundsByLocation()
         {
-            browser.Get("/Playgrounds/GetByLocation", with =>
+            _browser.Get("/Playgrounds/GetByLocation", with =>
             {
-                with.HttpRequest();
                 with.Query("lat", "55");
                 with.Query("long", "13");
                 
             });
 
-            A.CallTo(() => playgroundsRepository.GetByLocation(A<float>._, A<float>._)).MustHaveHappened();
+            A.CallTo(() => _playgroundsRepository.GetByLocation(A<float>._, A<float>._)).MustHaveHappened();
         }
 
         [TestCase("lat", "")]
@@ -64,11 +61,7 @@ namespace Lekplatser.Api.Tests
         [TestCase("lat", "0x1")]
         public void ShouldReturnBadRequestForInvalidLatOrLong(string key, string value)
         {
-            var result = browser.Get("/Playgrounds/GetByLocation", with =>
-            {
-                with.HttpRequest();
-                with.Query(key, value);
-            });
+            var result = _browser.Get("/Playgrounds/GetByLocation", with => with.Query(key, value));
 
             Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
         }
@@ -76,29 +69,35 @@ namespace Lekplatser.Api.Tests
         [Test]
         public void ShouldSendLatToRepository()
         {
-            browser.Get("/Playgrounds/GetByLocation", with =>
+            _browser.Get("/Playgrounds/GetByLocation", with =>
             {
-                with.HttpRequest();
                 with.Query("lat", "55,1234");
                 with.Query("long", "13");
 
             });
 
-            A.CallTo(() => playgroundsRepository.GetByLocation(55.1234f, A<float>._)).MustHaveHappened();
+            A.CallTo(() => _playgroundsRepository.GetByLocation(55.1234f, A<float>._)).MustHaveHappened();
         }
 
         [Test]
         public void ShouldSendLongToRepository()
         {
-            browser.Get("/Playgrounds/GetByLocation", with =>
+            _browser.Get("/Playgrounds/GetByLocation", with =>
             {
-                with.HttpRequest();
                 with.Query("lat", "55,1234");
                 with.Query("long", "13,9876");
 
             });
 
-            A.CallTo(() => playgroundsRepository.GetByLocation(A<float>._, 13.9876f)).MustHaveHappened();
+            A.CallTo(() => _playgroundsRepository.GetByLocation(A<float>._, 13.9876f)).MustHaveHappened();
+        }
+
+        [Test]
+        public void ShouldBeAbleToPostANewPlaygrund()
+        {
+            _browser.Post("/Playgrounds/Create", with => with.Body(""));
+
+            A.CallTo(() => _playgroundsRepository.Add(A<PlaygroundEntity>._)).MustHaveHappened();
         }
     }
 }
