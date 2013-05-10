@@ -7,9 +7,14 @@ namespace Lekplatser.Api.Repositories
 {
     public class PlaygroundsRepository : BaseRepository, IPlaygroundsRepository
     {
-        public IEnumerable<PlaygroundEntity> GetPlaygrounds()
+        public IEnumerable<PlaygroundEntity> GetAll()
         {
             return GetCollection().FindAll();
+        }
+
+        public IEnumerable<PlaygroundEntity> GetByLocation(float lat, float lng)
+        {
+            throw new System.NotImplementedException();
         }
 
         public ObjectId Add(PlaygroundEntity p)

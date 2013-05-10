@@ -19,13 +19,24 @@ namespace Lekplatser.Api.Modules
             Get["/GetAll"] = _ =>
             {
                 Request.RequireAdmin();
-                IEnumerable<PlaygroundEntity> playgroundEntities = _repository.GetPlaygrounds();
+                IEnumerable<PlaygroundEntity> playgroundEntities = _repository.GetAll();
                 var ret = Mapper.Map<IEnumerable<PlaygroundEntity>, IEnumerable<Playground>>(playgroundEntities);
                 return Response.AsJson(ret);
             };
 
             Get["/GetByLocation"] = param =>
             {
+                var x = Request.Query;
+                float lat, lng;
+                if (!float.TryParse(Request.Query["lat"], out lat) ||
+                    !float.TryParse(Request.Query["long"], out lng))
+                {
+                    return new Response
+                    {
+                        StatusCode = HttpStatusCode.BadRequest
+                    };
+                }
+
                 return null;
             };
 

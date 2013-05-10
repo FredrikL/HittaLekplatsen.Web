@@ -6,7 +6,8 @@ namespace Lekplatser.Api.Repositories
 {
     public interface IPlaygroundsRepository
     {
-        IEnumerable<PlaygroundEntity> GetPlaygrounds();
+        IEnumerable<PlaygroundEntity> GetAll();
+        IEnumerable<PlaygroundEntity> GetByLocation(float lat, float lng);
         ObjectId Add(PlaygroundEntity p);
         void Update(PlaygroundEntity p);
     }
