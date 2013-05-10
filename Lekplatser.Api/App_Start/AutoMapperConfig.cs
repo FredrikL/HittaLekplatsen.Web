@@ -21,6 +21,7 @@ namespace Lekplatser.Api.App_Start
                 .ForMember(le => le.Long, o => o.MapFrom(l => l.lng));
 
             Mapper.CreateMap<Playground, PlaygroundEntity>()
+                .ForMember(pe => pe.Id, o=> o.NullSubstitute(ObjectId.Empty))
                 .ForMember(pe => pe.Loc, o => o.MapFrom(p => Mapper.Map<Location,LocationEntity>(p.Location)))
                 .ForMember(pe => pe.Rating, o => o.Ignore()); // for now
 
