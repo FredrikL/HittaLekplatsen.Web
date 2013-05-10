@@ -37,7 +37,6 @@ namespace Lekplatser.Api.Modules
                     };
                 }
 
-
                 var result = _repository.GetByLocation(lat, lng);
 
                 var ret = Mapper.Map<IEnumerable<PlaygroundEntity>, IEnumerable<Playground>>(result);
@@ -51,21 +50,6 @@ namespace Lekplatser.Api.Modules
                 var id = _repository.Add(entity);
                 return Response.AsJson(id.ToString());
             };
-        }
-
-        private bool ParseLagLong(ref float lat, ref float lng, ref Response o)
-        {
-            if (float.TryParse(Request.Query["lat"], out lat) &&
-                float.TryParse(Request.Query["long"], out lng))
-            {
-                return false;
-            }
-
-            o = new Response
-            {
-                StatusCode = HttpStatusCode.BadRequest
-            };
-            return true;
         }
     }
 }
