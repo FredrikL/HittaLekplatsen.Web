@@ -46,7 +46,7 @@ namespace Lekplatser.Api.Tests
         [Test]
         public void ShouldBePossibleToSearchForPlaygroundsByLocation()
         {
-            var result = browser.Get("/Playgrounds/GetByLocation", with =>
+            browser.Get("/Playgrounds/GetByLocation", with =>
             {
                 with.HttpRequest();
                 with.Query("lat", "55");
@@ -54,7 +54,7 @@ namespace Lekplatser.Api.Tests
                 
             });
 
-            A.CallTo(() => playgroundsRepository.GetByLocation(A.Dummy<float>(), A.Dummy<float>())).MustHaveHappened();
+            A.CallTo(() => playgroundsRepository.GetByLocation(A<float>._, A<float>._)).MustHaveHappened();
         }
 
         [TestCase("lat", "")]
@@ -71,6 +71,34 @@ namespace Lekplatser.Api.Tests
             });
 
             Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+        }
+
+        [Test]
+        public void ShouldSendLatToRepository()
+        {
+            browser.Get("/Playgrounds/GetByLocation", with =>
+            {
+                with.HttpRequest();
+                with.Query("lat", "55,1234");
+                with.Query("long", "13");
+
+            });
+
+            A.CallTo(() => playgroundsRepository.GetByLocation(55.1234f, A<float>._)).MustHaveHappened();
+        }
+
+        [Test]
+        public void ShouldSendLongToRepository()
+        {
+            browser.Get("/Playgrounds/GetByLocation", with =>
+            {
+                with.HttpRequest();
+                with.Query("lat", "55,1234");
+                with.Query("long", "13,9876");
+
+            });
+
+            A.CallTo(() => playgroundsRepository.GetByLocation(A<float>._, 13.9876f)).MustHaveHappened();
         }
     }
 }

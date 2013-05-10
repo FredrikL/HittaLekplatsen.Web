@@ -26,9 +26,9 @@ namespace Lekplatser.Api.Modules
 
             Get["/GetByLocation"] = param =>
             {
-                var x = Request.Query;
-                float lat, lng;
-                if (!float.TryParse(Request.Query["lat"], out lat) ||
+                //todo: support . in lat/long ?
+                float lat = 0, lng = 0;
+                if (!float.TryParse(Request.Query.lat, out lat) ||
                     !float.TryParse(Request.Query["long"], out lng))
                 {
                     return new Response
@@ -37,7 +37,11 @@ namespace Lekplatser.Api.Modules
                     };
                 }
 
-                return null;
+
+                var result = _repository.GetByLocation(lat, lng);
+
+                var ret = Mapper.Map<IEnumerable<PlaygroundEntity>, IEnumerable<Playground>>(result);
+                return Response.AsJson(ret);
             };
 
             Post["/Create"] = _ =>
@@ -47,6 +51,21 @@ namespace Lekplatser.Api.Modules
                 var id = _repository.Add(entity);
                 return Response.AsJson(id.ToString());
             };
+        }
+
+        private bool ParseLagLong(ref float lat, ref float lng, ref Response o)
+        {
+            if (float.TryParse(Request.Query["lat"], out lat) &&
+                float.TryParse(Request.Query["long"], out lng))
+            {
+                return false;
+            }
+
+            o = new Response
+            {
+                StatusCode = HttpStatusCode.BadRequest
+            };
+            return true;
         }
     }
 }
