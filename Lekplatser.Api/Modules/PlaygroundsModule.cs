@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.SqlTypes;
 using AutoMapper;
 using Lekplatser.Api.Models;
 using Lekplatser.Api.Repositories;
@@ -46,9 +48,21 @@ namespace Lekplatser.Api.Modules
             Post["/Create"] = _ =>
             {
                 var p = this.Bind<Playground>();
+                if(p.Location == null ||
+                    ((int)p.Location.Lat == 0 && (int)p.Location.Long == 0))
+                    return new Response
+                    {
+                        StatusCode = HttpStatusCode.BadRequest
+                    };
+
                 var entity = Mapper.Map<Playground, PlaygroundEntity>(p);
                 var id = _repository.Add(entity);
                 return Response.AsJson(id.ToString());
+            };
+
+            Put["/Update"] = _ =>
+            {
+                throw new NotImplementedException();
             };
         }
     }

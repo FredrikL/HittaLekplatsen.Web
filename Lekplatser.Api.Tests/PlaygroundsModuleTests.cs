@@ -93,11 +93,19 @@ namespace Lekplatser.Api.Tests
         }
 
         [Test]
-        public void ShouldBeAbleToPostANewPlaygrund()
+        public void ShouldNotCreateAPlaygroundFromEmptyInput()
         {
             _browser.Post("/Playgrounds/Create", with => with.Body(""));
 
-            A.CallTo(() => _playgroundsRepository.Add(A<PlaygroundEntity>._)).MustHaveHappened();
+            A.CallTo(() => _playgroundsRepository.Add(A<PlaygroundEntity>._)).MustNotHaveHappened();
+        }
+
+        [Test]
+        public void ShouldThrowBadRequestForEmptyInput()
+        {
+            var result =  _browser.Post("/Playgrounds/Create", with => with.Body(""));
+
+            Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
         }
     }
 }
