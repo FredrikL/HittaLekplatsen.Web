@@ -40,5 +40,13 @@ namespace Lekplatser.Admin.Repository
 
             return "";
         }
+
+        public Playground GetById(string id)
+        {
+            var wc = new WebClient();
+            var data = wc.DownloadString(ConfigurationManager.AppSettings["ApiUrl"] + "/Playgrounds/ById/" + id);
+            var x = JsonConvert.DeserializeObject<Playground>(data);
+            return x;
+        }
     }
 }

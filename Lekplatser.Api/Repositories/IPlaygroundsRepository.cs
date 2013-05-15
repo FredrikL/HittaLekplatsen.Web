@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Lekplatser.Api.Models;
+using Lekplatser.Dto;
 using MongoDB.Bson;
 
 namespace Lekplatser.Api.Repositories
@@ -10,5 +11,6 @@ namespace Lekplatser.Api.Repositories
         IEnumerable<PlaygroundEntity> GetByLocation(float lat, float lng);
         ObjectId Add(PlaygroundEntity p);
         void Update(PlaygroundEntity p);
+        PlaygroundEntity GetById(string id);
     }
 }

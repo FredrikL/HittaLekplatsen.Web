@@ -27,7 +27,7 @@ namespace Lekplatser.Admin.Controllers
 
         public ActionResult Detail(string id)
         {
-            Playground p = null;
+            Playground p = _repository.GetById(id);
             return View(p);
         }
     }

@@ -44,6 +44,13 @@ namespace Lekplatser.Api.Modules
                 return Response.AsJson(ret);
             };
 
+            Get["/ById/{id}"] = x =>
+            {
+                PlaygroundEntity res = _repository.GetById(x.id);
+                Playground ret = Mapper.Map<PlaygroundEntity, Playground>(res);
+                return Response.AsJson(ret);
+            };
+
             Post["/Create"] = _ =>
             {
                 //TODO: proximity logic
