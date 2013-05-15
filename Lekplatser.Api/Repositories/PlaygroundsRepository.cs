@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Lekplatser.Api.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Builders;
 
 namespace Lekplatser.Api.Repositories
 {
@@ -14,7 +16,27 @@ namespace Lekplatser.Api.Repositories
 
         public IEnumerable<PlaygroundEntity> GetByLocation(float lat, float lng)
         {
-            throw new System.NotImplementedException();
+            var earthRadius = 6378.0; // km
+            var rangeInKm = 2.0; // km
+
+            GetCollection().EnsureIndex(IndexKeys.GeoSpatial("Loc"));
+
+            //var near =
+            //    Query.GT("ExpiresOn", now);
+
+            var options = GeoNearOptions
+                .SetMaxDistance(rangeInKm / earthRadius /* to radians */)
+                .SetSpherical(true);
+
+            GeoNearResult<PlaygroundEntity> results = GetCollection().GeoNear(
+                Query.Null,
+               lng, // note the order
+                lat,  // [lng, lat]
+                200,
+                options
+            );
+
+            return results.Hits.Select(result => result.Document);
         }
 
         public ObjectId Add(PlaygroundEntity p)

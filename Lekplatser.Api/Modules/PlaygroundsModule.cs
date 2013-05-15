@@ -29,7 +29,7 @@ namespace Lekplatser.Api.Modules
             Get["/GetByLocation"] = param =>
             {
                 //todo: support . in lat/long ?
-                float lat = 0, lng = 0;
+                float lat, lng;
                 if (!float.TryParse(Request.Query.lat, out lat) ||
                     !float.TryParse(Request.Query["long"], out lng))
                 {
