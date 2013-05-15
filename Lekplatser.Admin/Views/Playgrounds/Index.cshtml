@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Lekplatser.Dto.Playground>
+﻿@using Lekplatser.Admin
+@model IEnumerable<Lekplatser.Dto.Playground>
 
 @{
     ViewBag.Title = "All playgrounds (" + Model.Count() + ")";
@@ -8,25 +9,20 @@
 <div class="row-fluid">
     <div class="span12">
         <h2>Playgrounds</h2>
-        
-        
+                
         <div id="map-canvas">
         </div>
         
-        
-         
+        <script>
+            $(function() {
+                @foreach (var p in Model)
+                {                
+                    @:addMarker("@p.Id", @p.Location.Lat.ToJsString(), @p.Location.Long.ToJsString(), "@p.Name");               
+                }
+            });
+        </script>
 
-            @*        <table>
-            @foreach (var p in Model)
-            {
-                <tr>
-                    <td>@p.Name (@p.Id)</td>
-                    <td>@p.Location.Long, @p.Location.Lat</td>
-                </tr>
-            }
-        </table>*@
-        
-            <h2>New</h2>
+        <h2>New</h2>
             <form action="/Playgrounds/create" method="post">
             
                 <label for="Location.Lat">lat</label>
