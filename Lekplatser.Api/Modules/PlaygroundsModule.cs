@@ -46,6 +46,7 @@ namespace Lekplatser.Api.Modules
 
             Post["/Create"] = _ =>
             {
+                //TODO: proximity logic
                 var p = this.Bind<Playground>();
                 if(p.Location == null ||
                     ((int)p.Location.Lat == 0 && (int)p.Location.Long == 0))
