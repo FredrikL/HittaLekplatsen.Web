@@ -9,5 +9,10 @@ namespace Lekplatser.Admin
             var x = new NumberFormatInfo {NumberDecimalSeparator = "."};
             return f.ToString(x);
         }
+
+        public static string ToYesNo(this bool b)
+        {
+            return b ? "Yes" : "No";
+        }
     }
 }
