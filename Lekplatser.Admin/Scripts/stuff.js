@@ -10,6 +10,11 @@ $(function () {
         };
         Lekplatser.map = new google.maps.Map(document.getElementById("map-canvas"),
             mapOptions);
+
+        google.maps.event.addListener(Lekplatser.map, 'dragend', function () {
+            
+            console.log("map move");
+        });
     }
 
     initialize();
@@ -18,8 +23,13 @@ $(function () {
 function addMarker(id, lat, lng, title) {
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(lat, lng),
+        map: Lekplatser.map,
         title: title
     });
 
-    marker.setMap(Lekplatser.map);
+
+    google.maps.event.addListener(marker, 'click', function() {
+        console.log(id);
+        window.location = "/playgrounds/detail/" + id;
+    });
 }
