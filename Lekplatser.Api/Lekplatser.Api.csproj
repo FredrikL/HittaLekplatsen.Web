@@ -78,6 +78,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiBootstrapper.cs" />
     <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="Models\LocationEntity.cs" />
     <Compile Include="Modules\PlaygroundsModule.cs" />

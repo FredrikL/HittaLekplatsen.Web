@@ -39,6 +39,6 @@ namespace Lekplatser.Admin.Repository
             }
 
             return "";
-        } 
+        }
     }
 }

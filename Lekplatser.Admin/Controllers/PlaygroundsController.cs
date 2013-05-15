@@ -18,6 +18,13 @@ namespace Lekplatser.Admin.Controllers
             return View(_repository.GetAll());
         }
 
+        public ActionResult Create(Playground p)
+        {
+            _repository.Add(p);
+
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Detail(string id)
         {
             Playground p = null;

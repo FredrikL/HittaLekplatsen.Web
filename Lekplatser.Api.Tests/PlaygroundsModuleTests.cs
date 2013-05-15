@@ -1,5 +1,4 @@
-﻿using System.Runtime;
-using FakeItEasy;
+﻿using FakeItEasy;
 using Lekplatser.Api.App_Start;
 using Lekplatser.Api.Models;
 using Lekplatser.Api.Modules;
