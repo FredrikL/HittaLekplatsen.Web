@@ -1,7 +1,18 @@
-﻿@model IEnumerable<Lekplatser.Dto.Playground>
+﻿@using Lekplatser.Admin
+@model IEnumerable<Lekplatser.Dto.Playground>
 
 @{
     ViewBag.Title = "title";
     Layout = "../Shared/_Layout.cshtml";}
 
-<h2>title</h2>
+<div id="map-canvas">
+        </div>
+        
+        <script>
+            $(function() {
+                @foreach (var p in Model)
+                {                
+                    @:addMarker("@p.Id", @p.Location.Lat.ToJsString(), @p.Location.Long.ToJsString(), "@p.Name");               
+                }
+            });
+        </script>
