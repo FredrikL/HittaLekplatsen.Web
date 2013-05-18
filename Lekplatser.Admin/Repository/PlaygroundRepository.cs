@@ -51,7 +51,10 @@ namespace Lekplatser.Admin.Repository
 
         public IEnumerable<Playground> GetByLocation(float lat, float lng)
         {
-            throw new System.NotImplementedException();
+            var wc = new WebClient();
+            var data = wc.DownloadString(ConfigurationManager.AppSettings["ApiUrl"] + "/Playgrounds/GetByLocation/?lat=" + lat + "&long=" + lng);
+            var x = JsonConvert.DeserializeObject<Playground[]>(data);
+            return x;
         }
     }
 }
