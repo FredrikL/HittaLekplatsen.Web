@@ -1,8 +1,30 @@
-﻿@model Lekplatser.Dto.Playground
+﻿@using Lekplatser.Admin
+@model Lekplatser.Dto.Playground
 
 @{
     ViewBag.Title = "Details: " + Model.Name + "(" + Model.Id + ")";
     Layout = "../Shared/_Layout.cshtml";
  }
 
-<h2>Details</h2>
+<div class="row-fluid">
+    <div class="span12">
+
+        <h2>Details</h2>
+
+        <div id="map-canvas">
+        </div>
+
+        <script>
+            $(function() {
+                addMarker("", @Model.Location.Lat.ToJsString(), @Model.Location.Long.ToJsString(), "@Model.Name");
+            });
+        </script>
+            
+        Name: @Model.Name<br/>
+        Benches: @Model.HasBenches.ToYesNo() <br />
+        Swing: @Model.HasSwing.ToYesNo()<br />
+        Sandbox: @Model.HasSandbox.ToYesNo()<br />
+        Slide: @Model.HasSlide.ToYesNo()<br />
+        Public toilet: @Model.HasPublicToilet.ToYesNo()<br /> 
+    </div>
+</div>
