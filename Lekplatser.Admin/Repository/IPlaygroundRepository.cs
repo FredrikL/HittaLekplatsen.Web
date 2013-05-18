@@ -8,5 +8,6 @@ namespace Lekplatser.Admin.Repository
         IEnumerable<Playground> GetAll();
         string Add(Playground p);
         Playground GetById(string id);
+        IEnumerable<Playground> GetByLocation(float lat, float lng);
     }
 }

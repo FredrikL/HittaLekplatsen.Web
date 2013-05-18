@@ -48,5 +48,10 @@ namespace Lekplatser.Admin.Repository
             var x = JsonConvert.DeserializeObject<Playground>(data);
             return x;
         }
+
+        public IEnumerable<Playground> GetByLocation(float lat, float lng)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

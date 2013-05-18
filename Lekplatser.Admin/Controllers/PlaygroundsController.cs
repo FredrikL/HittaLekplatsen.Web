@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq.Expressions;
+using System.Web.Mvc;
 using Lekplatser.Admin.Repository;
 using Lekplatser.Dto;
 
@@ -28,6 +29,12 @@ namespace Lekplatser.Admin.Controllers
         public ActionResult Detail(string id)
         {
             Playground p = _repository.GetById(id);
+            return View(p);
+        }
+
+        public ActionResult Search(float Lat, float Long)
+        {
+            var p = _repository.GetByLocation(Lat, Long);
             return View(p);
         }
     }
