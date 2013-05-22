@@ -78,11 +78,10 @@ namespace Lekplatser.Api.Modules
                         StatusCode = HttpStatusCode.BadRequest
                     };
                 // Validate location unchanged
+                var original = _repository.GetById(p.Id);
 
 
-
-
-                throw new NotImplementedException();
+                return null;
             };
         }
     }

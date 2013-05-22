@@ -56,6 +56,9 @@
     <Reference Include="Nancy.Testing">
       <HintPath>..\packages\Nancy.Testing.0.17.1\lib\net40\Nancy.Testing.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -79,6 +82,10 @@
     <ProjectReference Include="..\Lekplatser.Api\Lekplatser.Api.csproj">
       <Project>{099A2CDC-8EA9-424E-B70A-6029E5AF6E89}</Project>
       <Name>Lekplatser.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lekplatser.Dto\Lekplatser.Dto.csproj">
+      <Project>{429694CA-F3E2-4CB7-B8D9-EE93BE84E911}</Project>
+      <Name>Lekplatser.Dto</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

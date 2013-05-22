@@ -3,9 +3,11 @@ using Lekplatser.Api.App_Start;
 using Lekplatser.Api.Models;
 using Lekplatser.Api.Modules;
 using Lekplatser.Api.Repositories;
+using Lekplatser.Dto;
 using NUnit.Framework;
 using Nancy;
 using Nancy.Testing;
+using Newtonsoft.Json;
 
 namespace Lekplatser.Api.Tests
 {
@@ -113,6 +115,24 @@ namespace Lekplatser.Api.Tests
             var result = _browser.Put("/Playgrounds/Update", with => with.Body("{}"));
 
             Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+        }
+
+        [Test]
+        public void ShouldGetOriginalPlaygroundFromRepoDuringUpdate()
+        {
+            
+            var someId = "12345";
+            var p = new Playground() {Id = someId};
+
+            string serializeObject = JsonConvert.SerializeObject(p);
+            
+            var result = _browser.Put("/Playgrounds/Update", with =>
+            {
+                with.Header("content-type","application/json");
+                with.Body(serializeObject);
+            });
+
+            A.CallTo(() => _playgroundsRepository.GetById(someId)).MustHaveHappened();
         }
     }
 }
