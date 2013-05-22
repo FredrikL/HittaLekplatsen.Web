@@ -106,5 +106,13 @@ namespace Lekplatser.Api.Tests
 
             Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
         }
+
+        [Test]
+        public void ShouldNotBeAllowedToUpdatePlaygroundWithouttId()
+        {
+            var result = _browser.Put("/Playgrounds/Update", with => with.Body("{}"));
+
+            Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+        }
     }
 }

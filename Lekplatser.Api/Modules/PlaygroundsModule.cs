@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web.UI.WebControls;
 using AutoMapper;
 using Lekplatser.Api.Models;
 using Lekplatser.Api.Repositories;
 using Lekplatser.Dto;
+using MongoDB.Bson;
 using Nancy;
 using Nancy.ModelBinding;
 
@@ -69,6 +71,17 @@ namespace Lekplatser.Api.Modules
 
             Put["/Update"] = _ =>
             {
+                var p = this.Bind<Playground>();
+                if(p.Id == null || p.Id == ObjectId.Empty.ToString())
+                    return new Response
+                    {
+                        StatusCode = HttpStatusCode.BadRequest
+                    };
+                // Validate location unchanged
+
+
+
+
                 throw new NotImplementedException();
             };
         }
