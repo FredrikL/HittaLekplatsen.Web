@@ -80,6 +80,15 @@ namespace Lekplatser.Api.Modules
                 // Validate location unchanged
                 var original = _repository.GetById(p.Id);
 
+                if(original.Loc != null &&
+                    ((original.Loc.lat != p.Location.Lat) ||
+                    (original.Loc.lng != p.Location.Long)))
+                    return new Response
+                    {
+                        StatusCode = HttpStatusCode.BadRequest
+                    };
+
+                _repository.Update(Mapper.Map<Playground, PlaygroundEntity>(p));
 
                 return null;
             };

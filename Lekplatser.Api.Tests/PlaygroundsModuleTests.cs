@@ -4,6 +4,7 @@ using Lekplatser.Api.Models;
 using Lekplatser.Api.Modules;
 using Lekplatser.Api.Repositories;
 using Lekplatser.Dto;
+using MongoDB.Bson;
 using NUnit.Framework;
 using Nancy;
 using Nancy.Testing;
@@ -123,16 +124,50 @@ namespace Lekplatser.Api.Tests
             
             var someId = "12345";
             var p = new Playground() {Id = someId};
+            A.CallTo(() => _playgroundsRepository.GetById(A<string>._)).Returns(A.Dummy<PlaygroundEntity>());
 
-            string serializeObject = JsonConvert.SerializeObject(p);
-            
-            var result = _browser.Put("/Playgrounds/Update", with =>
+            string serializeObject = JsonConvert.SerializeObject(p);            
+            _browser.Put("/Playgrounds/Update", with =>
             {
                 with.Header("content-type","application/json");
                 with.Body(serializeObject);
             });
 
             A.CallTo(() => _playgroundsRepository.GetById(someId)).MustHaveHappened();
+        }
+
+        [Test]
+        public void ShouldNotAllowUpdateIfLocationDoesNotMatch()
+        {
+            var p = new Playground() {Id = "123", Location = new Location(1, 2)};
+            var o = new PlaygroundEntity() { Loc= new LocationEntity(){lat= 1, lng= 1}};
+            A.CallTo(() => _playgroundsRepository.GetById("123")).Returns(o);
+
+            string serializeObject = JsonConvert.SerializeObject(p);
+            var result = _browser.Put("/Playgrounds/Update", with =>
+            {
+                with.Header("content-type", "application/json");
+                with.Body(serializeObject);
+            });
+
+            Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+        }
+
+        [Test]
+        public void ShouldUpdateIfLocationsIsSame()
+        {
+            var p = new Playground() { Id = "5193c8df654ed925d4599428", Location = new Location(1, 2) };
+            var o = new PlaygroundEntity() { Loc = new LocationEntity() { lat = 1, lng = 2 } };
+            A.CallTo(() => _playgroundsRepository.GetById("123")).Returns(o);
+
+            string serializeObject = JsonConvert.SerializeObject(p);
+            var result = _browser.Put("/Playgrounds/Update", with =>
+            {
+                with.Header("content-type", "application/json");
+                with.Body(serializeObject);
+            });
+
+            A.CallTo(() => _playgroundsRepository.Update(A<PlaygroundEntity>._)).MustHaveHappened();
         }
     }
 }
