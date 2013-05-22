@@ -161,7 +161,7 @@ namespace Lekplatser.Api.Tests
             A.CallTo(() => _playgroundsRepository.GetById("123")).Returns(o);
 
             string serializeObject = JsonConvert.SerializeObject(p);
-            var result = _browser.Put("/Playgrounds/Update", with =>
+            _browser.Put("/Playgrounds/Update", with =>
             {
                 with.Header("content-type", "application/json");
                 with.Body(serializeObject);
