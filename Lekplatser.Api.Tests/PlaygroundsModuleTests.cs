@@ -1,4 +1,6 @@
-﻿using FakeItEasy;
+﻿using System.IO;
+using System.Text;
+using FakeItEasy;
 using Lekplatser.Api.App_Start;
 using Lekplatser.Api.Models;
 using Lekplatser.Api.Modules;
@@ -143,11 +145,9 @@ namespace Lekplatser.Api.Tests
             var o = new PlaygroundEntity() { Loc= new LocationEntity(){lat= 1, lng= 1}};
             A.CallTo(() => _playgroundsRepository.GetById("123")).Returns(o);
 
-            string serializeObject = JsonConvert.SerializeObject(p);
             var result = _browser.Put("/Playgrounds/Update", with =>
             {
-                with.Header("content-type", "application/json");
-                with.Body(serializeObject);
+                with.Body(ConvertToStream(p), "application/json");
             });
 
             Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
@@ -160,14 +160,20 @@ namespace Lekplatser.Api.Tests
             var o = new PlaygroundEntity() { Loc = new LocationEntity() { lat = 1, lng = 2 } };
             A.CallTo(() => _playgroundsRepository.GetById("123")).Returns(o);
 
-            string serializeObject = JsonConvert.SerializeObject(p);
             _browser.Put("/Playgrounds/Update", with =>
             {
-                with.Header("content-type", "application/json");
-                with.Body(serializeObject);
+                with.Body(ConvertToStream(p), "application/json");
             });
 
             A.CallTo(() => _playgroundsRepository.Update(A<PlaygroundEntity>._)).MustHaveHappened();
+        }
+
+        private Stream ConvertToStream<T>(T v)
+        {
+            string serializeObject = JsonConvert.SerializeObject(v);
+            byte[] byteArray = Encoding.ASCII.GetBytes(serializeObject);
+            MemoryStream stream = new MemoryStream(byteArray);
+            return stream;
         }
     }
 }
