@@ -123,17 +123,12 @@ namespace Lekplatser.Api.Tests
         [Test]
         public void ShouldGetOriginalPlaygroundFromRepoDuringUpdate()
         {
-            
-            var someId = "12345";
+
+            var someId = "5193c8df654ed925d4599428";
             var p = new Playground() {Id = someId};
             A.CallTo(() => _playgroundsRepository.GetById(A<string>._)).Returns(A.Dummy<PlaygroundEntity>());
 
-            string serializeObject = JsonConvert.SerializeObject(p);            
-            _browser.Put("/Playgrounds/Update", with =>
-            {
-                with.Header("content-type","application/json");
-                with.Body(serializeObject);
-            });
+            _browser.Put("/Playgrounds/Update", with => with.Body(ConvertToStream(p), "application/json"));
 
             A.CallTo(() => _playgroundsRepository.GetById(someId)).MustHaveHappened();
         }
@@ -145,10 +140,7 @@ namespace Lekplatser.Api.Tests
             var o = new PlaygroundEntity() { Loc= new LocationEntity(){lat= 1, lng= 1}};
             A.CallTo(() => _playgroundsRepository.GetById("123")).Returns(o);
 
-            var result = _browser.Put("/Playgrounds/Update", with =>
-            {
-                with.Body(ConvertToStream(p), "application/json");
-            });
+            var result = _browser.Put("/Playgrounds/Update", with => with.Body(ConvertToStream(p), "application/json"));
 
             Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
         }
@@ -160,10 +152,7 @@ namespace Lekplatser.Api.Tests
             var o = new PlaygroundEntity() { Loc = new LocationEntity() { lat = 1, lng = 2 } };
             A.CallTo(() => _playgroundsRepository.GetById("123")).Returns(o);
 
-            _browser.Put("/Playgrounds/Update", with =>
-            {
-                with.Body(ConvertToStream(p), "application/json");
-            });
+            _browser.Put("/Playgrounds/Update", with => with.Body(ConvertToStream(p), "application/json"));
 
             A.CallTo(() => _playgroundsRepository.Update(A<PlaygroundEntity>._)).MustHaveHappened();
         }
