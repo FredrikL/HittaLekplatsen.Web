@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.UI.WebControls;
+﻿using System.Collections.Generic;
 using AutoMapper;
 using Lekplatser.Api.Models;
 using Lekplatser.Api.Repositories;
@@ -90,7 +88,15 @@ namespace Lekplatser.Api.Modules
 
                 _repository.Update(Mapper.Map<Playground, PlaygroundEntity>(p));
 
-                return null;
+                return new Response { StatusCode = HttpStatusCode.OK };
+            };
+
+            Delete["/{id}"] = x =>
+            {
+                Request.RequireAdmin();
+
+                _repository.Delete(x.id);
+                return new Response{StatusCode = HttpStatusCode.OK};
             };
         }
     }

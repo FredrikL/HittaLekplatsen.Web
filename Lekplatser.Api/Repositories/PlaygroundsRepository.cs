@@ -56,6 +56,11 @@ namespace Lekplatser.Api.Repositories
             return p;
         }
 
+        public void Delete(string someId)
+        {
+            throw new System.NotImplementedException();
+        }
+
         private MongoCollection<PlaygroundEntity> GetCollection()
         {
             return GetDataBase().GetCollection<PlaygroundEntity>("playgrounds");

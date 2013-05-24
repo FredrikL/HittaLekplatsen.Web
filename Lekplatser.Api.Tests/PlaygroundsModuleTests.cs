@@ -157,6 +157,16 @@ namespace Lekplatser.Api.Tests
             A.CallTo(() => _playgroundsRepository.Update(A<PlaygroundEntity>._)).MustHaveHappened();
         }
 
+        [Test]
+        public void ShouldBePossibleToDeletePlayground()
+        {
+            var someId = "5193c8df654ed925d4599428";
+
+            var result = _browser.Delete("/Playgrounds/" + someId);
+
+            A.CallTo(() => _playgroundsRepository.Delete(someId)).MustHaveHappened();
+        }
+
         private Stream ConvertToStream<T>(T v)
         {
             string serializeObject = JsonConvert.SerializeObject(v);

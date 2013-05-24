@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Lekplatser.Api.Models;
-using Lekplatser.Dto;
 using MongoDB.Bson;
 
 namespace Lekplatser.Api.Repositories
@@ -12,5 +11,6 @@ namespace Lekplatser.Api.Repositories
         ObjectId Add(PlaygroundEntity p);
         void Update(PlaygroundEntity p);
         PlaygroundEntity GetById(string id);
+        void Delete(string someId);
     }
 }
