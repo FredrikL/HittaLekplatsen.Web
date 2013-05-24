@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Lekplatser.Api.Models;
 using MongoDB.Bson;
@@ -58,7 +59,8 @@ namespace Lekplatser.Api.Repositories
 
         public void Delete(string someId)
         {
-            throw new System.NotImplementedException();
+            var q = Query<PlaygroundEntity>.EQ(e => e.Id, new ObjectId(someId));
+            GetCollection().Remove(q);
         }
 
         private MongoCollection<PlaygroundEntity> GetCollection()
