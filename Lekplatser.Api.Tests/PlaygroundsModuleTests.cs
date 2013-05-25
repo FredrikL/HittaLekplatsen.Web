@@ -6,7 +6,6 @@ using Lekplatser.Api.Models;
 using Lekplatser.Api.Modules;
 using Lekplatser.Api.Repositories;
 using Lekplatser.Dto;
-using MongoDB.Bson;
 using NUnit.Framework;
 using Nancy;
 using Nancy.Testing;
@@ -162,7 +161,7 @@ namespace Lekplatser.Api.Tests
         {
             var someId = "5193c8df654ed925d4599428";
 
-            var result = _browser.Delete("/Playgrounds/" + someId);
+            _browser.Delete("/Playgrounds/" + someId);
 
             A.CallTo(() => _playgroundsRepository.Delete(someId)).MustHaveHappened();
         }
