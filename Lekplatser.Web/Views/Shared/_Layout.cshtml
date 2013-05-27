@@ -4,10 +4,28 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    
+    <link href="~/Styles/bootstrap.min.css" rel="stylesheet"/>
+     <style>
+      #map-canvas {
+          width: 600px;
+          height: 400px;
+      }
+
+      #map-canvas img {
+          max-width: none;
+        }
+    </style>
+    <link href="~/Styles/bootstrap-responsive.min.css" rel="stylesheet"/>
+    <script src="~/Scripts/jquery-2.0.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZq7w0TBzXoRHYA6NCw7pPpU8RMiWwJ4s&sensor=false"></script>
+    
 </head>
-<body>
-    <div>
-          @RenderBody()
-    </div>
-</body>
+    <body>
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+    </body>
+
 </html>
