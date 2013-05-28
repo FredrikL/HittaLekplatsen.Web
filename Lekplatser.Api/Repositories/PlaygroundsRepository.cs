@@ -18,7 +18,7 @@ namespace Lekplatser.Api.Repositories
         public IEnumerable<PlaygroundEntity> GetByLocation(float lat, float lng)
         {
             var earthRadius = 6378.0; // km
-            var rangeInKm = 2.0; // km
+            var rangeInKm = 10.0; // km
 
             GetCollection().EnsureIndex(IndexKeys.GeoSpatial("Loc"));
 
