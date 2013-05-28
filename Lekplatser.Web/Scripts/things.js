@@ -17,11 +17,16 @@ Lekplatser.onMapDrag = function () {
 Lekplatser.loadPlaygrounds = function() {
     console.log(Lekplatser.map.getCenter());
     var location = Lekplatser.map.getCenter();
-    // todo: call backend to get markers
     $.ajax("/api/playgrounds/GetByLocation?lat=" + location.lat() + "&lng=" + location.lng(),
         {
-            success: function(data) {
-                console.log(data);
+            success: function (data) {
+                data.forEach(function(d) {
+                    var marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(d.Location.Lat, d.Location.Long),
+                        map: Lekplatser.map,
+                        icon: '/images/playground.png'
+                    });
+                });
             }
         });
 };
