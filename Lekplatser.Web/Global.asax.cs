@@ -1,8 +1,10 @@
-﻿using System.Web.Http;
+﻿using System.Reflection;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
 using Lekplatser.Web.Repository;
 
 namespace Lekplatser.Web
@@ -26,11 +28,16 @@ namespace Lekplatser.Web
             IocRegistration(builder);
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
+            GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+           
         }
 
         private static void IocRegistration(ContainerBuilder builder)
         {
             builder.RegisterType<PlaygroundsRepository>().As<IPlaygroundsRepository>();
+
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
         }
     }
