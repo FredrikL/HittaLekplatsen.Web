@@ -4,7 +4,8 @@ Lekplatser.addMarker = function(id, lat, lng, title) {
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(lat, lng),
         map: Lekplatser.map,
-        title: title
+        title: title,
+        icon: '/images/playground.png'
     });
 };
 
@@ -18,19 +19,15 @@ Lekplatser.loadPlaygrounds = function() {
     console.log(Lekplatser.map.getCenter());
     var location = Lekplatser.map.getCenter();
     $.ajax("/api/playgrounds/GetByLocation?lat=" + location.lat() + "&lng=" + location.lng(),
-        {
+        {   
             success: function (data) {
-                data.forEach(function(d) {
-                    var marker = new google.maps.Marker({
-                        position: new google.maps.LatLng(d.Location.Lat, d.Location.Long),
-                        map: Lekplatser.map,
-                        icon: '/images/playground.png'
-                    });
+                console.log(data);
+                data.forEach(function (d) {
+                    Lekplatser.addMarker(d.Id, d.Location.Lat, d.Location.Long, d.Name);
                 });
             }
         });
 };
-
 
 $(function () {
     function initialize() {
