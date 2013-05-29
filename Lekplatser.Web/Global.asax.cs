@@ -5,7 +5,7 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
-using Lekplatser.Web.Repository;
+using Lekplatser.Shared.Repository;
 
 namespace Lekplatser.Web
 {
@@ -35,7 +35,7 @@ namespace Lekplatser.Web
 
         private static void IocRegistration(ContainerBuilder builder)
         {
-            builder.RegisterType<PlaygroundsRepository>().As<IPlaygroundsRepository>();
+            builder.RegisterType<PlaygroundRepository>().As<IPlaygroundRepository>();
 
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             builder.RegisterControllers(typeof(MvcApplication).Assembly);

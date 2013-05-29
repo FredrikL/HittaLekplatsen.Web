@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using Lekplatser.Dto;
-using Lekplatser.Web.Repository;
+using Lekplatser.Shared.Repository;
 
 namespace Lekplatser.Web.Api
 {
     public class PlaygroundsController : ApiController
     {
-        private readonly IPlaygroundsRepository _repository;
+        private readonly IPlaygroundRepository _repository;
 
-        public PlaygroundsController(IPlaygroundsRepository repository)
+        public PlaygroundsController(IPlaygroundRepository repository)
         {
             _repository = repository;
         }

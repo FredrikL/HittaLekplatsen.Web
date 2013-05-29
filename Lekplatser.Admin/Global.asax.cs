@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
-using Lekplatser.Admin.Repository;
+using Lekplatser.Shared.Repository;
 
 namespace Lekplatser.Admin
 {
@@ -34,6 +34,7 @@ namespace Lekplatser.Admin
         private static void IocRegistration(ContainerBuilder builder)
         {
             builder.RegisterType<PlaygroundRepository>().As<IPlaygroundRepository>();
+            builder.RegisterType<PlaygroundRepository>().As<IAdminPlayGroundRepository>();
             builder.RegisterControllers(typeof (MvcApplication).Assembly);
         }
     }

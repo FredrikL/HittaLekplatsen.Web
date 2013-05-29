@@ -5,9 +5,9 @@ using System.Net;
 using Lekplatser.Dto;
 using Newtonsoft.Json;
 
-namespace Lekplatser.Admin.Repository
+namespace Lekplatser.Shared.Repository
 {
-    public class PlaygroundRepository : IPlaygroundRepository
+    public class PlaygroundRepository : IPlaygroundRepository, IAdminPlayGroundRepository
     {
         public IEnumerable<Playground> GetAll()
         {

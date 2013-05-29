@@ -1,7 +1,7 @@
 ﻿using FakeItEasy;
 using Lekplatser.Dto;
+using Lekplatser.Shared.Repository;
 using Lekplatser.Web.Api;
-using Lekplatser.Web.Repository;
 using NUnit.Framework;
 
 namespace Lekplatser.Web.Tests
@@ -10,7 +10,7 @@ namespace Lekplatser.Web.Tests
     public class PlaygroundsControllerTests
     {
         [Fake]
-        private IPlaygroundsRepository repository;
+        private IPlaygroundRepository repository;
 
         [UnderTest]
         private PlaygroundsController controller;

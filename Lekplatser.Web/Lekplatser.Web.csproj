@@ -128,8 +128,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\IPlaygroundsRepository.cs" />
-    <Compile Include="Repository\PlaygroundsRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -168,6 +166,10 @@
     <ProjectReference Include="..\Lekplatser.Dto\Lekplatser.Dto.csproj">
       <Project>{429694CA-F3E2-4CB7-B8D9-EE93BE84E911}</Project>
       <Name>Lekplatser.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lekplatser.Shared\Lekplatser.Shared.csproj">
+      <Project>{14F0723D-3B29-4EA3-AB22-13446F96E0F5}</Project>
+      <Name>Lekplatser.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

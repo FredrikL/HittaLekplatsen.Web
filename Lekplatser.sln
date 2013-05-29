@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lekplatser.Api.Tests", "Lek
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lekplatser.Web.Tests", "Lekplatser.Web.Tests\Lekplatser.Web.Tests.csproj", "{813E60FB-817A-4CDF-B842-45D43CE98343}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lekplatser.Shared", "Lekplatser.Shared\Lekplatser.Shared.csproj", "{14F0723D-3B29-4EA3-AB22-13446F96E0F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{813E60FB-817A-4CDF-B842-45D43CE98343}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{813E60FB-817A-4CDF-B842-45D43CE98343}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{813E60FB-817A-4CDF-B842-45D43CE98343}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14F0723D-3B29-4EA3-AB22-13446F96E0F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14F0723D-3B29-4EA3-AB22-13446F96E0F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14F0723D-3B29-4EA3-AB22-13446F96E0F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14F0723D-3B29-4EA3-AB22-13446F96E0F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

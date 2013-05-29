@@ -1,39 +1,41 @@
 ﻿using System.Web.Mvc;
-using Lekplatser.Admin.Repository;
 using Lekplatser.Dto;
+using Lekplatser.Shared.Repository;
 
 namespace Lekplatser.Admin.Controllers
 {
     public class PlaygroundsController : Controller
     {
-        private readonly IPlaygroundRepository _repository;
+        private readonly IPlaygroundRepository _playgroundRepository;
+        private readonly IAdminPlayGroundRepository _adminPlayGroundRepository;
 
-        public PlaygroundsController(IPlaygroundRepository repository)
+        public PlaygroundsController(IPlaygroundRepository playgroundRepository, IAdminPlayGroundRepository adminPlayGroundRepository)
         {
-            _repository = repository;
+            _playgroundRepository = playgroundRepository;
+            _adminPlayGroundRepository = adminPlayGroundRepository;
         }
 
         public ActionResult Index()
         {
-            return View(_repository.GetAll());
+            return View(_adminPlayGroundRepository.GetAll());
         }
 
         public ActionResult Create(Playground p)
         {
-            _repository.Add(p);
+            _playgroundRepository.Add(p);
 
             return RedirectToAction("Index");
         }
 
         public ActionResult Detail(string id)
         {
-            Playground p = _repository.GetById(id);
+            Playground p = _playgroundRepository.GetById(id);
             return View(p);
         }
 
         public ActionResult Search(float Lat, float Long)
         {
-            var p = _repository.GetByLocation(Lat, Long);
+            var p = _playgroundRepository.GetByLocation(Lat, Long);
             return View(p);
         }
     }
