@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace Lekplatser.Shared.Repository
 {
-    public class PlaygroundRepository : IPlaygroundRepository, IAdminPlayGroundRepository
+    public class PlaygroundRepository : IAdminPlayGroundRepository
     {
         public IEnumerable<Playground> GetAll()
         {
