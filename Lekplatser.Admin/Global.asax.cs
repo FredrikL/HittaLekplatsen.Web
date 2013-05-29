@@ -33,7 +33,6 @@ namespace Lekplatser.Admin
 
         private static void IocRegistration(ContainerBuilder builder)
         {
-            builder.RegisterType<PlaygroundRepository>().As<IPlaygroundRepository>();
             builder.RegisterType<PlaygroundRepository>().As<IAdminPlayGroundRepository>();
             builder.RegisterControllers(typeof (MvcApplication).Assembly);
         }

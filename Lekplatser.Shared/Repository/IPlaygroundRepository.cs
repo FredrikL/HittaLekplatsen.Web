@@ -9,4 +9,9 @@ namespace Lekplatser.Shared.Repository
         Playground GetById(string id);
         IEnumerable<Playground> GetByLocation(float lat, float lng);
     }
+
+    public interface IAdminPlayGroundRepository : IPlaygroundRepository
+    {
+        IEnumerable<Playground> GetAll();
+    }
 }

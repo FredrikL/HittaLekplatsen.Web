@@ -6,18 +6,16 @@ namespace Lekplatser.Admin.Controllers
 {
     public class PlaygroundsController : Controller
     {
-        private readonly IPlaygroundRepository _playgroundRepository;
-        private readonly IAdminPlayGroundRepository _adminPlayGroundRepository;
+        private readonly IAdminPlayGroundRepository _playgroundRepository;
 
-        public PlaygroundsController(IPlaygroundRepository playgroundRepository, IAdminPlayGroundRepository adminPlayGroundRepository)
+        public PlaygroundsController(IAdminPlayGroundRepository playgroundRepository)
         {
             _playgroundRepository = playgroundRepository;
-            _adminPlayGroundRepository = adminPlayGroundRepository;
         }
 
         public ActionResult Index()
         {
-            return View(_adminPlayGroundRepository.GetAll());
+            return View(_playgroundRepository.GetAll());
         }
 
         public ActionResult Create(Playground p)
