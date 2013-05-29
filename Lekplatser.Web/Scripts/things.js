@@ -1,6 +1,8 @@
 ﻿var Lekplatser = Lekplatser || {};
 
-Lekplatser.addMarker = function(id, lat, lng, title) {
+Lekplatser.addMarker = function (id, lat, lng, title) {
+    // TODO: cache markers based on id so that they are not readded
+
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(lat, lng),
         map: Lekplatser.map,
