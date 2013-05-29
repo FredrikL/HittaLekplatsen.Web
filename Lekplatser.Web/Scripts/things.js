@@ -1,14 +1,16 @@
 ﻿var Lekplatser = Lekplatser || {};
+Lekplatser.mapCache = Lekplatser.mapCache || {};
 
 Lekplatser.addMarker = function (id, lat, lng, title) {
-    // TODO: cache markers based on id so that they are not readded
-
-    var marker = new google.maps.Marker({
-        position: new google.maps.LatLng(lat, lng),
-        map: Lekplatser.map,
-        title: title,
-        icon: '/images/playground.png'
-    });
+    if (!Lekplatser.mapCache[id]) {
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(lat, lng),
+            map: Lekplatser.map,
+            title: title,
+            icon: '/images/playground.png'
+        });
+        Lekplatser.mapCache[id] = marker;
+    }
 };
 
 Lekplatser.dragTimer = null;
@@ -18,12 +20,10 @@ Lekplatser.onMapDrag = function () {
 };
 
 Lekplatser.loadPlaygrounds = function() {
-    console.log(Lekplatser.map.getCenter());
     var location = Lekplatser.map.getCenter();
     $.ajax("/api/playgrounds/GetByLocation?lat=" + location.lat() + "&lng=" + location.lng(),
         {   
             success: function (data) {
-                console.log(data);
                 data.forEach(function (d) {
                     Lekplatser.addMarker(d.Id, d.Location.Lat, d.Location.Long, d.Name);
                 });
